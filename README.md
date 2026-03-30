@@ -1,92 +1,195 @@
-# newsBite_group_BE
+### 🚀 NewsBite — Personalized News Aggregator & Ad Campaign Platform (Backend)
+
+    This is the backend API for NewsBite, a full-stack personalized news platform with an integrated Ad Campaign System.
+
+    The system automatically fetches news from multiple RSS feeds, allows users to personalize their content, and dynamically injects advertisements while tracking unique views and clicks for analytics.
+
+    Built using Node.js + TypeScript + Express + MongoDB + Mongoose + Routing-Controllers + TypeDI
+
+### 🌐 System Roles
+    Role	Description
+    Admin	Manages RSS Agents (feeds), Ads, and Analytics
+    User	Consumes personalized news feed, saves articles, interacts with ads
 
 
+### 🎯 Core Features :
 
-## Getting started
+### 🔐 Authentication & Access Control
+    JWT-based authentication
+    Secure login/register system
+    Session handling with expiry
+    Middleware-based route protection
+    Role-based access (Admin / User)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### 📰 News Aggregation System
+    RSS Feed integration (BBC, CNN, TechCrunch, etc.)
+    Background fetcher using cron jobs
+    Automatic article parsing & storage
+    Duplicate prevention using unique URLs
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### 🤖 Background Fetcher Agents
+    Dynamic RSS agent configuration
+    Configurable fetch intervals
+    Fault-tolerant processing (no crash on failure)
+    Auto categorization of articles
 
-## Add your files
+### 🧠 Personalized Feed
+    User-based category preferences
+    "For You" feed based on interests
+    Infinite scrolling support (pagination ready)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### 📌 Article Management
+    Store news articles from RSS feeds
+    Bookmark/save articles
+    Fetch saved articles per user
 
-```
-cd existing_repo
-git remote add origin https://gitlab.kelltontech.net/newsBite-development-corporation-limited/newsBite_group_be.git
-git branch -M main
-git push -uf origin main
-```
+### 📢 Ad Campaign System
+    Create & manage ad campaigns
+    Category-based targeting
+    Enable/disable ads dynamically
 
-## Integrate with your tools
+### 📊 Ad Analytics (CORE FEATURE)
+    Track unique ad views (impressions)
+    Track unique ad clicks
+    Ensure one view per user per ad
+    Calculate CTR (Click Through Rate)
 
-- [ ] [Set up project integrations](https://gitlab.kelltontech.net/newsBite-development-corporation-limited/newsBite_group_be/-/settings/integrations)
+### 🔥 Ad Injection Engine
+    Automatically inject ads into feed
+    Configurable (e.g., 1 ad per N articles)
+    Seamless UI integration-ready
 
-## Collaborate with your team
+### 🛠 Tech Stack
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+    Node.js + Express
+    TypeScript
+    MongoDB + Mongoose
+    routing-controllers
+    typedi (Dependency Injection)
+    JWT Authentication
+    bcrypt password hashing
+    node-cron (Background Jobs)
+    RSS Parser
+    Helmet, CORS
+    Morgan (logging)
 
-## Test and Deploy
+### 📂 Final Folder Structure
 
-Use the built-in continuous integration in GitLab.
+    backend/
+    ├── src/
+    │   ├── config/              # Environment & DB config
+    │   ├── controllers/         # API Controllers (Auth, User, Ads, Feed)
+    │   ├── model/               # Mongoose Models (User, Article, Ad, etc.)
+    │   ├── middleware/          # Auth Middleware
+    │   ├── services/            # Business logic layer
+    │   ├── utils/               # Helpers (JWT, Errors, etc.)
+    │   └── index.ts             # Entry point
+    ├── appData/
+    │   └── uploads/             # (optional)
+    ├── package.json
+    ├── tsconfig.json
+    └── .env.example
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### ⚙️ Environment Variables (.env.example)
 
-***
+    NODE_ENV=local
+    PORT=8000
 
-# Editing this README
+    # Database
+    MONGO_URI=mongodb://127.0.0.1:27017/newsbite
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+    # JWT
+    JWT_SECRET=your_jwt_secret
+    JWT_EXPIRES_IN=1d
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+    # CORS
+    CORS_ORIGIN=http://localhost:5173
 
-## Name
-Choose a self-explaining name for your project.
+### 📦 Installation
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+    1. Clone project
+    git clone https://github.com/your/newsbite-backend.git
+    cd newsbite-backend
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+    2. Install dependencies
+    npm install
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+    3. Setup environment
+    Create .env file using .env.example
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+    4. Start server
+    npm run start:local
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Server runs at:
+    http://localhost:8000
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### API Endpoints
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+    🔐 Auth
+    Method	Endpoint	Description
+    POST	/api/auth/register	Register user
+    POST	/api/auth/login	Login user
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+    👤 User
+    Method	Endpoint	Description
+    PATCH	/api/user/preferences	Update categories
+    GET	/api/user/saved	Get saved articles
+    POST	/api/user/save	Toggle save article
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+    📰 Feed
+    Method	Endpoint	Description
+    GET	/api/feed	Personalized feed
+    GET	/api/feed?category=Tech	Category feed
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+    🤖 Agents (RSS Feeds)
+    Method	Endpoint	Description
+    POST	/api/agents	Create agent
+    GET	/api/agents	Get all agents
+    PATCH	/api/agents/:id	Update agent
+    DELETE	/api/agents/:id	Delete agent
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+    📄 Articles
+    Method	Endpoint	Description
+    GET	/api/articles	Get articles
 
-## License
-For open source projects, say how it is licensed.
+    📢 Ads (Campaign)
+    Method	Endpoint	Description
+    POST	/api/ads	Create ad
+    GET	/api/ads	Get all ads
+    PATCH	/api/ads/:id	Update ad
+    DELETE	/api/ads/:id	Delete ad
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+    📊 Ad Analytics
+    Method	Endpoint	Description
+    POST	/api/ads/analytics/view	Track ad view
+    POST	/api/ads/analytics/click	Track ad click
+    GET	/api/ads/analytics/:adId	Get campaign stats
+
+    🧠 Background Fetcher
+    Method	Endpoint	Description
+    POST	/api/agents/fetch-now	Fetch RSS manually
+
+### 📊 Ad Tracking Logic (IMPORTANT)
+    Unique index on (userId + adId)
+    One view per user per ad
+    Click automatically marks view = true
+    CTR = (clicks / views) * 100
+
+### 🛡️ Security
+    JWT Authentication required
+    Protected routes using middleware
+    Secure headers via Helmet
+    CORS protection
+    Password hashing with bcrypt
+
+### ⚡ Performance Optimizations
+    Indexed fields:
+        Article → link, category
+        AdAnalytics → userId + adId
+    Pagination for feed
+    Efficient Mongo queries
+
+### 👨‍💻 Developer
+
+    Hariom Verma
+    NewsBite — Personalized News Aggregator & Ad Campaign Platform 🚀
