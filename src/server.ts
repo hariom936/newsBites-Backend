@@ -19,6 +19,8 @@ import databaseConstants from "./constant/databaseConstant";
 import morgan from 'morgan';
 import path from "path";
 
+import { startRssCron } from "./jobs/rssCron";
+
 async function start() {
   await setupEnv();
 
@@ -74,5 +76,6 @@ async function start() {
     process.exit(1);
   }
 }
-
+  
 start();
+startRssCron();
