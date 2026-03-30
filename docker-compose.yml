@@ -1,0 +1,28 @@
+version: "3"
+services:
+  mongo_db:
+    container_name: database_container
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+
+  server:
+    build: .
+    ports:
+      - 8000:3000
+    environment:
+      PORT: 8000
+      CORS_ORIGIN: "*"
+      NODE_ENV: local
+      DEV_ENVS: local,dev
+      MONGO_DB_NAME: newsBite
+      MONGO_URL: "mongodb+srv://newsBite:bkbzSFrLKhi2WTN1@cluster0.ugjqown.mongodb.net/" # local
+      JWT_SECRET: b113d52a-ea2c-4236-a46d-f195459728bc
+      JWT_ACCESS_EXPIRATION: 365d
+      SESSION_EXPIRE_TIME: 1440
+    depends_on:
+      - mongo_db
+
+volumes: 
+  mongo_db:
