@@ -9,6 +9,8 @@ import config from "../config/config";
 import { ApiError } from "../utils/Apierror";
 import httpStatus from "http-status";
 
+import { ArticleModel } from "../model/Article";
+
 @Service()
 export class UserService {
 
@@ -78,39 +80,40 @@ export class UserService {
   }
 
   async getSavedArticles(userId: string) {
-    return UserModel.findById(userId).populate("savedArticles");
+    const user = await UserModel.findById(userId).populate("savedArticles");
+
+    return user?.savedArticles.map((article: any) => ({
+      articleId: article._id,
+      title: article.title,
+      link: article.link,
+      category: article.category,
+    }));
   }
-
-
 
   async toggleSaveArticle(userId: string, articleId: string) {
     const user = await UserModel.findById(userId);
 
-    // ✅ FIX 1: null check
     if (!user) {
-      throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+      throw new Error("User not found");
     }
 
-    // ✅ convert string → ObjectId
-    const articleObjectId = new Types.ObjectId(articleId);
-
-    // ✅ FIX 2: proper comparison
     const exists = user.savedArticles.some(
-      (id) => id.toString() === articleId
+      (id: any) => id.toString() === articleId
     );
 
     if (exists) {
-      // ✅ FIX 3: use filter instead of pull (TS safe)
       user.savedArticles = user.savedArticles.filter(
-        (id) => id.toString() !== articleId
+        (id: any) => id.toString() !== articleId
       );
     } else {
-      user.savedArticles.push(articleObjectId);
+      user.savedArticles.push(articleId as any);
     }
 
     await user.save();
 
-    return user.savedArticles;
-
+    // ✅ FORMAT RESPONSE
+    return user.savedArticles.map((id: any) => ({
+      articleId: id.toString(),
+    }));
   }
 }

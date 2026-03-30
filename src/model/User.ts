@@ -28,7 +28,12 @@ const userSchema = new Schema<IUser>(
     },
 
     preferences: [{ type: String }],
-    savedArticles: [{ type: Schema.Types.ObjectId, ref: "Article" }],
+    savedArticles: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Article", // ⚠️ MUST MATCH MODEL NAME
+      },
+    ],
 
     session: {
       sessionId: String,

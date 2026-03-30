@@ -1,38 +1,25 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-export interface IArticle {
+export interface IArticle extends Document {
   title: string;
   description: string;
   link: string;
   pubDate: Date;
   category: string;
-  sourceAgent: Types.ObjectId;
-  hash: string;
 }
 
-const articleSchema = new Schema<IArticle>(
+const articleSchema = new Schema(
   {
     title: String,
     description: String,
-
-    link: { type: String, required: true },
-    hash: { type: String, required: true, unique: true },
-
+    link: { type: String, unique: true },
     pubDate: Date,
     category: String,
-
-    sourceAgent: {
-      type: Schema.Types.ObjectId,
-      ref: "Agent",
-    },
   },
   { timestamps: true }
 );
 
-// Index for performance
-articleSchema.index({ category: 1, pubDate: -1 });
-
 export const ArticleModel = mongoose.model<IArticle>(
-  "Article",
+  "Article", // ⚠️ THIS NAME MUST MATCH populate()
   articleSchema
 );

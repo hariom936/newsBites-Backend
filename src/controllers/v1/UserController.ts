@@ -12,8 +12,10 @@ import {
 } from "routing-controllers";
 import { Service } from "typedi";
 import { UserService } from "../../services/UserService";
+import { AuthMiddleware } from "../../middlewares/AuthMiddleware";
 
 @Service()
+@UseBefore(AuthMiddleware)
 @JsonController("/user")
 export class UserController {
 
