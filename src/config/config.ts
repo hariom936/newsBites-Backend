@@ -9,16 +9,22 @@ const config = {
     accessExpirationMinutes: process.env.JWT_ACCESS_EXPIRATION as string,
   },
   corsOptions: {
-    origin: (origin, callback) => {
-      if (
-        process.env.CORS_ORIGIN === "*" ||
-        process.env.CORS_ORIGIN?.split(",").indexOf(origin) !== -1
-      ) {
+    origin: (origin: any, callback: any) => {
+      // ✅ allow requests with no origin (Postman, mobile apps)
+      if (!origin) return callback(null, true);
+
+      const allowedOrigins = [
+        "http://localhost:3000",
+        "http://localhost:5173",
+      ];
+
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error());
+        callback(null, true); // 🔥 TEMP allow all
       }
     },
+    credentials: true,
     methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
   },
   // set the response headers config for helmet
@@ -33,7 +39,7 @@ const config = {
   },
 
   SESSION_EXPIRE_TIME: Number(process.env.SESSION_EXPIRE_TIME) || 10,
-  OTP_EXPIRE_TIME :5,
+  OTP_EXPIRE_TIME: 5,
 };
 
 export default config;
