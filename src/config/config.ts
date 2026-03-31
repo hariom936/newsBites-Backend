@@ -15,7 +15,7 @@ const config = {
 
       const allowedOrigins = [
         "http://localhost:3000",
-        "http://localhost:5173",
+        "https://newsbites-frontend.onrender.com",
       ];
 
       if (allowedOrigins.includes(origin)) {
