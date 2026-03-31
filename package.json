@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "start:local": "env-cmd -f .env nodemon --exec ts-node index.ts",
-    "start": "nodemon index.ts",
     "serve": "env-cmd nodemon --watch 'src/**/*.ts' --watch 'src/**/*.json' --watch index.ts --exec ts-node index.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
